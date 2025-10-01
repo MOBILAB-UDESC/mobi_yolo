@@ -1,0 +1,30 @@
+detection_node:
+  ros__parameters:
+    # TF frames
+    camera_frame: 'camera_link' # RGB camera's reference frame (local coordinates)
+    base_frame: 'base_link' # Target frame for global object position (robot base)
+
+    # Camera parameters
+    camera_info: 'rgb/camera_info' # Camera intrinsics (K matrix)
+    depth_topic: 'depth/image'
+    rgb_topic: 'rgb/image'
+    depth_scale: 1.0 # Scale factor to convert depth image to meters (depth_image / depth_scale)
+
+    # Synchronization parameters
+    queue_size: 10 # Message buffer size for syncing depth and RGB images and info
+    sync_slop: 0.1 # Max time difference (100ms) between RGB/depth messages
+
+    # OpenCV parameters
+    # visualize_rgb_image: True # enable opencv visualization for RGB image
+    # visualize_depth_image: False # enable opencv visualization for depth image
+    visualize_center_object: True # Draw a circle at the center of detected objects
+    center_object_color: [0, 255, 0] # Color of the circle at the center of detected objects (BGR format)
+    visualize_center_image: True # Draw a circle at the center of the rgb image
+    center_image_color: [255, 0, 0] # Color of the circle at the center of the rgb image (BGR format)
+
+    # Detection parameters
+    model_path: 'mobi_yolo/yolo_detection/weights/apple.pt'
+    conf: 0.5 # Minimum confidence threshold for detections
+    iou: 0.7 # Intersection Over Union threshold for Non-Maximum Suppression
+    publish_poses: True # Publish RGB image with bounding boxes
+    sphere_shape: True # Use sphere shape for 3D bounding box
